@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Registration Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            font-size: 14px;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f2f2f2;
+        }
+        .container{
+            background-color: white;
+            width: 500px;
+            padding: 25px;
+            margin: 50px auto 0;
+            border-top: 7px solid rgba(239, 165, 45, 0.826);
+        }
+        .container h2{
+             text-align: center;
+             font-size: 30px;
+             line-height: 30px;
+             padding: 30px ;
+        }
+        .input{
+            width: 90%;
+            position: relative;
+            margin: 20px auto;
+        }
+        .name{
+            width: 45%;
+            padding: 8px 0 8px 40px;
+            border: 1px solid #cccccc;
+        }
+        .input span{
+            margin-left: 35px;
+        }
+        .text-name{
+            width: 100%;
+            padding: 8px 0 8px 40px;
+            border: 1px solid #cccccc;
+        }
+        .lock{
+            padding: 8px 11px;
+        }
+        .input i{
+            position: absolute;
+            font-size: 18px;
+            border-right: 1px solid #cccccc;
+        }
+        .email{
+            padding: 8px 11px;
+        }
+        .country{
+            display: inline-block;
+            width: 100%;
+            height: 35px;
+            padding: 0px 15px;
+            cursor: pointer;
+            border: 1px solid #cccccc;
+        }
+        .button{
+            padding: 10px;
+            width: 100%;
+            background-color: rgba(238, 169, 41, 0.923);
+            color: white;
+            border: none;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Responsive Registration Form</h2>
+        <div class="form-container">
+            <form>
+                <div class="input">
+                    <i class="fa-solid fa-envelope email"></i>
+                    <input type="email" placeholder="Email" class="text-name">
+                </div>
+                <div class="input">
+                    <i class="fa-solid fa-lock lock"></i>
+                    <input type="password" placeholder="Password" class="text-name">
+                </div>
+                <div class="input">
+                    <i class="fa-solid fa-lock lock"></i>
+                    <input type="password" placeholder="Re-type Password" class="text-name">
+                </div>
+                <div class="input">
+                    <i class="fa-solid fa-user lock"></i>
+                    <input type="text" placeholder="First Name" class="name">
+                    <span>
+                        <i class="fa-solid fa-user lock"></i>
+                        <input type="text" placeholder="Last Name" class="name">
+                    </span>
+                </div>
+                <div class="input">
+                    <input type="radio" class="radio-button" name="r">
+                       <label style="margin-right: 10px;">Male</label>
+                    <input type="radio" class="radio-button" name="r">
+                       <label>Female</label>
+                </div>
+                <div class="input">
+                    <select class="country">
+                        <option>Select a country</option>
+                        <option>India</option>
+                        <option>Africa</option>
+                        <option>America</option>
+                        <option>Japan</option>
+                    </select>
+                    <div class="arrow"></div>
+                </div>
+                <div class="input">
+                    <input type="checkbox" class="checkbox">
+                    <label>I agree with terms and conditions</label>
+                </div>
+                <div class="input">
+                    <input type="checkbox" class="checkbox">
+                    <label>I want to recieve the newsletter</label>
+                </div>
+                <div class="input">
+                    <input type="submit" class="button" value="Register">
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        const form = document.querySelector("form");
+        const email = document.querySelector("input[type='email']");
+        const password = document.querySelector("input[type='password']");
+        const retypePassword = document.querySelector("input[placeholder='Re-type Password']");
+        const firstName = document.querySelector("input[placeholder='First Name']");
+        const lastName = document.querySelector("input[placeholder='Last Name']");
+        const country = document.querySelector(".country");
+        const termsCheckbox = document.querySelector("input[type='checkbox']");
+
+        form.addEventListener("submit", function () {
+            
+            
+            let isValid = true;
+            let errorMessage = "";
+
+            if (!validateEmail(email.value)) {
+                isValid = false;
+                errorMessage += "Please enter a valid email address.\n";
+            }
+
+            if (password.value !== retypePassword.value) {
+                isValid = false;
+                errorMessage += "Passwords do not match.\n";
+            }
+
+            if (firstName.value.trim() === "") {
+                isValid = false;
+                errorMessage += "Please enter your first name.\n";
+            }
+
+            if (lastName.value.trim() === "") {
+                isValid = false;
+                errorMessage += "Please enter your last name.\n";
+            }
+
+            if (country.value === "Select a country") {
+                isValid = false;
+                errorMessage += "Please select a country.\n";
+            }
+
+            if (!termsCheckbox.checked) {
+                isValid = false;
+                errorMessage += "You must agree with the terms and conditions.\n";
+            }
+
+            if (isValid) {
+                alert("Registration successful!");
+                form.submit();
+            } else {
+                alert(errorMessage);
+            }
+        });
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+    </script>
+</body>
+</html>
